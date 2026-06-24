@@ -1,5 +1,13 @@
 # 技术决策记录
 
+## 2026-06-24 GitHub 页面确认使用 API 与 README 最小修正
+
+决策：GitHub 页面确认阶段只验证仓库公开状态、默认分支、远程 README 和最新提交，不做 GitHub Pages 或 Releases。
+
+原因：当前作品集入口已经由根目录 `README.md` 承担；继续扩展页面能力会超出当前最小阶段目标。
+
+影响：新增 `docs/github_page_check.md`，并修正 README 的“下一步”为录屏素材命名与交付文件夹整理。
+
 ## 2026-06-24 GitHub 首次推送完成
 
 决策：保留 `master` 作为当前远程分支，不额外改名为 `main`。

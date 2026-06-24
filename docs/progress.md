@@ -1,5 +1,26 @@
 # 项目进度
 
+## 阶段验收：GitHub 页面确认与作品集入口检查
+
+日期：2026-06-24
+
+完成内容：
+- 通过 GitHub API 确认远程仓库 `liwuyue113-dotcom/1` 存在。
+- 确认仓库为公开仓库，默认分支为 `master`。
+- 确认远程最新提交为 `1701fade docs: record successful github push`。
+- 确认远程 `README.md` 已存在。
+- 更新 README 的“下一步”，避免继续指向已经完成的提交前检查阶段。
+- 新增 `docs/github_page_check.md` 记录页面确认结果。
+
+验证方式：
+- `Invoke-WebRequest https://api.github.com/repos/liwuyue113-dotcom/1` 返回 `private: false`、`visibility: public`、`default_branch: master`。
+- `Invoke-WebRequest https://api.github.com/repos/liwuyue113-dotcom/1/contents/README.md` 返回远程 `README.md` 元数据和 GitHub 页面链接。
+- `Invoke-WebRequest https://api.github.com/repos/liwuyue113-dotcom/1/commits/master` 返回最新提交 `1701fade...`。
+
+结论：
+- 当前阶段已完成，达到最小可行度。
+- 下一步进入“录屏素材命名与作品集交付文件夹最小整理”，不继续打磨 GitHub 页面。
+
 ## 阶段验收：GitHub 首次推送完成
 
 日期：2026-06-24
@@ -26,7 +47,7 @@
 
 ## 总体阶段
 
-当前阶段：Unity Level1 三路线一致性静态核对已完成，建议进入 Unity 编辑器复核下方暗道敌人归属。
+当前阶段：GitHub 页面确认与作品集入口检查已完成，建议进入录屏素材命名与作品集交付文件夹最小整理。
 
 完整阶段路线与验收标准见 `docs/staged_roadmap.md`。
 
@@ -1336,7 +1357,7 @@ def chat_once(state, player_message):
 
 ## 下一里程碑
 
-下一阶段建议：进入第一次提交执行前确认。只确认是否按 `docs/first_commit_scope.md` 的范围执行 `git add` 和 `git commit`。
+下一阶段建议：进入录屏素材命名与作品集交付文件夹最小整理。只确认演示视频应该如何命名、放在哪里、对应哪些展示模块。
 
 ## 更新模板
 

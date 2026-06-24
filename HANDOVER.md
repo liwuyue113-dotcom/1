@@ -1,5 +1,15 @@
 # 《囚城营救》项目交接文档
 
+## 2026-06-24 GitHub 页面确认与入口检查已完成
+
+- GitHub 仓库页面：`https://github.com/liwuyue113-dotcom/1`
+- 仓库为公开仓库，默认分支为 `master`。
+- 远程最新提交为 `1701fade docs: record successful github push`。
+- 远程 `README.md` 已存在，并作为作品集入口。
+- 已新增 `docs/github_page_check.md`。
+- README 的“下一步”已更新为录屏素材命名与作品集交付文件夹最小整理。
+- 当前不继续打磨 GitHub 页面，不做 GitHub Pages，不创建 Releases。
+
 ## 2026-06-24 GitHub 首次推送已完成
 
 - 用户已在本机 PowerShell 成功执行 `git push -u origin master`。
@@ -676,14 +686,14 @@ MCP Client
 - 用户是以作品集为目标的数字媒体技术学生，回复时要边做边教，但一次只讲一个小知识点。
 - 每次教学回复必须说明当前阶段、本阶段目标、是否完成、下一步和本次修改文件。
 - 完成功能或重要设定变更后，同步更新 `docs/progress.md` 和直接相关设计文档。
-## 10. 2026-06-24 GitHub 推送状态
+## 10. 2026-06-24 GitHub 推送状态（历史记录）
 
 - 用户提供的 GitHub 仓库地址为 `https://github.com/liwuyue113-dotcom/1.git`。
 - 当前仓库已配置 remote：`origin -> https://github.com/liwuyue113-dotcom/1.git`。
-- 已尝试执行 `git push -u origin master`。
-- 推送暂未完成，原因是本机 Git 无法连接 `github.com:443`。
+- 用户已成功执行 `git push -u origin master`。
+- 后续文档提交 `1701fad docs: record successful github push` 也已推送到 `origin/master`。
 - 当前工作区仍只有 `tools/` 未跟踪。
-- 网络恢复后，继续执行 `git push -u origin master`。
+- 当前不需要继续打磨推送流程。
 
 ## 9. 2026-06-24 最新接手补充
 
@@ -694,10 +704,9 @@ MCP Client
 - 提交范围包含项目入口文档、`docs/`、`rag/`、`ai_npc/`、`agent_workflow/`、`level_designer/` 和 `stage5` 到 `stage8`。
 - `tools/` 仍然未跟踪，暂不纳入《囚城营救》AI 游戏作品集主线提交。
 
-### 9.2 GitHub 推送前状态
+### 9.2 GitHub 推送前状态（历史记录）
 
 - 当前分支：`master`。
-- 当前尚未配置远程仓库，`git remote -v` 无输出。
+- 当前远程仓库为 `origin -> https://github.com/liwuyue113-dotcom/1.git`。
 - 新增 `docs/github_push_precheck.md` 记录推送前最小检查。
-- 下一步需要用户提供 GitHub 仓库地址，或先在 GitHub 创建空仓库。
-- 推送前还需要确认仓库公开/私有，以及是否继续使用 `master` 作为默认分支。
+- GitHub 首次推送已完成，仓库为公开仓库，默认分支为 `master`。
