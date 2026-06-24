@@ -1,5 +1,19 @@
 # GitHub 推送前最小检查
 
+## 2026-06-24 推送尝试记录
+
+- 已配置远程仓库：`origin -> https://github.com/liwuyue113-dotcom/1.git`
+- 已尝试执行：`git push -u origin master`
+- 推送结果：未完成。
+- 阻塞原因：本机 Git 无法连接 `github.com:443`，报错为 `Failed to connect to github.com port 443`。
+- 当前判断：这不是代码内容问题，也不是提交范围问题，而是本机到 GitHub 的网络连接问题。
+
+网络恢复后，继续执行：
+
+```powershell
+git push -u origin master
+```
+
 ## 文档用途
 
 本文记录 2026-06-24 第一次本地提交之后，推送到 GitHub 之前需要确认的最小事项。
@@ -10,7 +24,7 @@
 
 - 当前分支：`master`
 - 第一次本地提交：`f9ea39e chore: initialize portfolio project workspace`
-- 当前远程仓库：未配置
+- 当前远程仓库：`origin -> https://github.com/liwuyue113-dotcom/1.git`
 - 当前未跟踪文件：`tools/`
 
 `tools/` 当前仍然不进入主项目提交范围，因为它主要是本地简历 PDF 生成工具，和《囚城营救》AI 游戏作品集主线关系较弱。后续如果要整理求职材料，可以单独建一个阶段处理。
@@ -24,9 +38,9 @@
 
 ## 还不能直接推送的原因
 
-当前仓库没有配置 GitHub remote。
+当前仓库已经配置 GitHub remote，但本机 Git 暂时无法连接 GitHub。
 
-推送前至少需要确认：
+继续推送前至少需要确认：
 
 1. GitHub 仓库地址。
 2. 仓库是公开还是私有。

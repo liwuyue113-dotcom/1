@@ -131,6 +131,14 @@ Unity 客户端 -> HTTP JSON 请求 -> FastAPI -> 大模型或 RAG/Agent -> JSON
 选择原因：
 带来的影响：
 ```
+## 2026-06-24 GitHub remote 配置
+
+决策：使用用户提供的仓库地址 `https://github.com/liwuyue113-dotcom/1.git` 作为当前仓库的 `origin`。
+
+原因：当前作品集仓库已经有本地提交历史，下一步需要推送到用户指定的 GitHub 仓库。
+
+影响：remote 配置已完成；推送命令 `git push -u origin master` 因本机无法连接 `github.com:443` 暂未完成。
+
 ## 2026-06-24 GitHub 推送前检查
 
 决策：GitHub 推送前先检查 remote，不在没有仓库地址时直接推送。
