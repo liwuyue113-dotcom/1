@@ -7,7 +7,7 @@
 完成内容：
 - 通过 GitHub API 确认远程仓库 `liwuyue113-dotcom/1` 存在。
 - 确认仓库为公开仓库，默认分支为 `master`。
-- 确认远程最新提交为 `1701fade docs: record successful github push`。
+- 确认页面检查时的远程提交为 `1701fade docs: record successful github push`。
 - 确认远程 `README.md` 已存在。
 - 更新 README 的“下一步”，避免继续指向已经完成的提交前检查阶段。
 - 新增 `docs/github_page_check.md` 记录页面确认结果。
@@ -15,7 +15,7 @@
 验证方式：
 - `Invoke-WebRequest https://api.github.com/repos/liwuyue113-dotcom/1` 返回 `private: false`、`visibility: public`、`default_branch: master`。
 - `Invoke-WebRequest https://api.github.com/repos/liwuyue113-dotcom/1/contents/README.md` 返回远程 `README.md` 元数据和 GitHub 页面链接。
-- `Invoke-WebRequest https://api.github.com/repos/liwuyue113-dotcom/1/commits/master` 返回最新提交 `1701fade...`。
+- `Invoke-WebRequest https://api.github.com/repos/liwuyue113-dotcom/1/commits/master` 在页面检查时返回提交 `1701fade...`。
 
 结论：
 - 当前阶段已完成，达到最小可行度。

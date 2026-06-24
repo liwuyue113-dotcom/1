@@ -4,7 +4,7 @@
 
 - GitHub 仓库页面：`https://github.com/liwuyue113-dotcom/1`
 - 仓库为公开仓库，默认分支为 `master`。
-- 远程最新提交为 `1701fade docs: record successful github push`。
+- 页面检查时的远程提交为 `1701fade docs: record successful github push`。
 - 远程 `README.md` 已存在，并作为作品集入口。
 - 已新增 `docs/github_page_check.md`。
 - README 的“下一步”已更新为录屏素材命名与作品集交付文件夹最小整理。

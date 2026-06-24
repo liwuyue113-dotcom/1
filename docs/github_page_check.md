@@ -11,8 +11,8 @@
 - GitHub 仓库地址：`https://github.com/liwuyue113-dotcom/1`
 - 仓库可见性：公开仓库。
 - 默认分支：`master`。
-- 远程最新提交：`1701fade13129c4efd22ba3319d4bc9fd8f8cc4d`。
-- 最新提交信息：`docs: record successful github push`。
+- 页面检查时的远程提交：`1701fade13129c4efd22ba3319d4bc9fd8f8cc4d`。
+- 页面检查时的提交信息：`docs: record successful github push`。
 - 远程 `README.md` 已存在。
 - 远程 README 页面：`https://github.com/liwuyue113-dotcom/1/blob/master/README.md`
 
