@@ -1331,3 +1331,46 @@ def chat_once(state, player_message):
 涉及文档：
 后续任务：
 ```
+## 阶段验收：第一次本地 Git 提交执行
+
+日期：2026-06-24
+
+完成内容：
+- 已按 `docs/first_commit_scope.md` 建议范围完成第一次本地提交。
+- 提交号为 `f9ea39e`，提交信息为 `chore: initialize portfolio project workspace`。
+- 提交范围包含根目录入口文档、`docs/`、`rag/`、`ai_npc/`、`agent_workflow/`、`level_designer/` 和 `stage5` 到 `stage8`。
+- `tools/` 仍保持未跟踪状态，暂不纳入作品集主线提交。
+
+验证方式：
+- `git log --oneline` 可看到 `f9ea39e chore: initialize portfolio project workspace`。
+- `git status --short` 仅显示 `?? tools/`。
+- `rag/tests` 35 项通过。
+- `ai_npc/tests` 4 项通过。
+- `agent_workflow/tests` 16 项通过。
+- `level_designer/tests` 18 项通过。
+
+结论：
+- 第一次本地提交阶段已完成，达到最小可行度。
+- 下一阶段进入 GitHub 推送前最小检查。
+
+## 阶段验收：GitHub 推送前最小检查
+
+日期：2026-06-24
+
+完成内容：
+- 新增 `docs/github_push_precheck.md`。
+- 确认当前分支为 `master`。
+- 确认第一次本地提交为 `f9ea39e chore: initialize portfolio project workspace`。
+- 确认当前尚未配置 GitHub remote。
+- 确认当前未跟踪文件只剩 `tools/`，且本阶段不处理它。
+
+验证方式：
+- `git branch --show-current` 返回 `master`。
+- `git remote -v` 无输出，说明尚未配置远程仓库。
+- `git log --oneline` 可看到第一次本地提交 `f9ea39e chore: initialize portfolio project workspace`。
+- `git status --short` 返回 `?? tools/`。
+
+结论：
+- GitHub 推送前检查已达到最小可行度。
+- 当前不能直接推送，因为还缺 GitHub 仓库地址、公开/私有选择，以及是否保留 `master` 分支的决定。
+- 下一步应由用户提供 GitHub 仓库地址，或先在 GitHub 创建空仓库。

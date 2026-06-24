@@ -666,3 +666,19 @@ MCP Client
 - 用户是以作品集为目标的数字媒体技术学生，回复时要边做边教，但一次只讲一个小知识点。
 - 每次教学回复必须说明当前阶段、本阶段目标、是否完成、下一步和本次修改文件。
 - 完成功能或重要设定变更后，同步更新 `docs/progress.md` 和直接相关设计文档。
+## 9. 2026-06-24 最新接手补充
+
+### 9.1 第一次本地提交
+
+- 第一次本地 Git 提交已完成。
+- 第一次本地提交：`f9ea39e chore: initialize portfolio project workspace`。
+- 提交范围包含项目入口文档、`docs/`、`rag/`、`ai_npc/`、`agent_workflow/`、`level_designer/` 和 `stage5` 到 `stage8`。
+- `tools/` 仍然未跟踪，暂不纳入《囚城营救》AI 游戏作品集主线提交。
+
+### 9.2 GitHub 推送前状态
+
+- 当前分支：`master`。
+- 当前尚未配置远程仓库，`git remote -v` 无输出。
+- 新增 `docs/github_push_precheck.md` 记录推送前最小检查。
+- 下一步需要用户提供 GitHub 仓库地址，或先在 GitHub 创建空仓库。
+- 推送前还需要确认仓库公开/私有，以及是否继续使用 `master` 作为默认分支。

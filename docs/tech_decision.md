@@ -131,3 +131,10 @@ Unity 客户端 -> HTTP JSON 请求 -> FastAPI -> 大模型或 RAG/Agent -> JSON
 选择原因：
 带来的影响：
 ```
+## 2026-06-24 GitHub 推送前检查
+
+决策：GitHub 推送前先检查 remote，不在没有仓库地址时直接推送。
+
+原因：当前本地提交已完成，但 `git remote -v` 无输出。直接推送会失败，也无法判断仓库公开/私有和默认分支策略。
+
+影响：新增 `docs/github_push_precheck.md`；下一步由用户提供 GitHub 仓库地址后，再配置 `origin` 并推送。
