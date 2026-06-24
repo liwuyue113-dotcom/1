@@ -1,5 +1,15 @@
 # 《囚城营救》项目交接文档
 
+## 2026-06-24 GitHub 首次推送已完成
+
+- 用户已在本机 PowerShell 成功执行 `git push -u origin master`。
+- 远程仓库：`https://github.com/liwuyue113-dotcom/1.git`。
+- 当前分支：`master`。
+- upstream：`origin/master`。
+- 本地验证：`git status -sb` 显示 `## master...origin/master`。
+- `tools/` 仍为未跟踪目录，暂不纳入作品集主线提交。
+- 下一步建议只做 GitHub 页面确认与作品集展示入口检查，不继续打磨推送流程。
+
 更新时间：2026-06-24
 
 ## 1. 项目目标

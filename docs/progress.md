@@ -1,5 +1,23 @@
 # 项目进度
 
+## 阶段验收：GitHub 首次推送完成
+
+日期：2026-06-24
+
+完成内容：
+- 用户在本机 PowerShell 成功执行 `git push -u origin master`。
+- 远程仓库为 `https://github.com/liwuyue113-dotcom/1.git`。
+- `master` 已建立 upstream 到 `origin/master`。
+
+验证方式：
+- 截图显示 GitHub 返回 `master -> master`，并提示 `branch 'master' set up to track 'origin/master'`。
+- 本地 `git status -sb` 显示 `## master...origin/master`。
+- 本地 `git rev-parse --abbrev-ref --symbolic-full-name '@{u}'` 返回 `origin/master`。
+
+结论：
+- GitHub 首次推送完成，达到最小可行度。
+- 下一步进入 GitHub 页面确认与作品集展示入口检查，不继续打磨 Git 推送流程。
+
 ## 文档用途
 
 本文档是整个作品集项目的唯一进度总表。每次完成、开始或取消功能时都要更新本文件，并同步更新对应设计文档与技术决策。

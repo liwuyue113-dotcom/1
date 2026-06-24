@@ -1,5 +1,14 @@
 # GitHub 推送前最小检查
 
+## 2026-06-24 推送成功记录
+
+- 用户已在本机 PowerShell 成功执行 `git push -u origin master`。
+- GitHub 返回 `master -> master`，并建立 `master` 到 `origin/master` 的追踪关系。
+- 本地验证：`git status -sb` 显示 `## master...origin/master`。
+- 本地验证：`git rev-parse --abbrev-ref --symbolic-full-name '@{u}'` 返回 `origin/master`。
+- 当前仍只有 `tools/` 未跟踪，继续不纳入本次作品集主线提交范围。
+- 本阶段已达到最小可行度，不继续打磨 Git 推送流程。
+
 ## 2026-06-24 推送尝试记录
 
 - 已配置远程仓库：`origin -> https://github.com/liwuyue113-dotcom/1.git`
