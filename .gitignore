@@ -1,0 +1,26 @@
+__pycache__/
+*.pyc
+rag/rag_data/
+
+# Local secrets and environments
+.env
+.env.*
+.venv/
+venv/
+
+# Generated local outputs
+tmp/
+output/
+
+# Unity generated folders
+Library/
+Temp/
+Logs/
+Obj/
+UserSettings/
+
+# Logs and local caches
+*.log
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
