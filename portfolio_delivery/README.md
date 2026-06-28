@@ -33,6 +33,8 @@ portfolio_delivery/
 | 07 | `07_agent_workflow.mp4` | Tool Calling / Memory | 展示白名单工具、本局记忆和未授权工具拒绝 |
 | 08 | `08_mcp_tools_demo.mp4` | MCP 最小服务 | 展示 `tools/list` 以及两个只读工具的受控调用 |
 
+`01_level1_overview.mp4` 的录屏前检查见 [../docs/level1_overview_recording_checklist.md](../docs/level1_overview_recording_checklist.md)。
+
 ## 截图与封面命名
 
 与对应视频保持相同前缀：
@@ -46,7 +48,7 @@ covers/02_ai_guard_true_route_cover.png
 
 ## 当前边界
 
-- 不在本阶段录制、剪辑或上传视频。
+- 录制前先使用对应模块的检查清单，不在本文中扩写演示脚本。
 - 不把视频大文件直接加入 Git 提交。
 - 不创建 GitHub Release，等正式成片准备好后再决定交付方式。
 - 不改 Unity 场景、Python 服务或已完成的演示逻辑。

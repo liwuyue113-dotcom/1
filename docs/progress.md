@@ -1,5 +1,29 @@
 # 项目进度
 
+## 阶段验收：Unity Level1 主演示录屏前最小检查
+
+日期：2026-06-28
+
+完成内容：
+- 新增 `docs/level1_overview_recording_checklist.md`。
+- 将 `01_level1_overview.mp4` 限制为 60 到 90 秒的游戏本体总览。
+- 定义最小展示内容：倒计时、玩家移动、敌人压力和路线选择。
+- 明确 AI 守卫对话和真路线闭环留给 `02_ai_guard_true_route.mp4`。
+- 补充 Game 视图、桌面通知、本机路径和 API Key 的录屏隐私边界。
+- 记录录制后的最小复核步骤。
+
+验证方式：
+- 确认 `D:\UnityProjects\project03` 存在。
+- 确认 Unity 版本为 `2022.3.62f3`。
+- 确认 `Assets\scens\Level1.unity` 存在。
+- 检查清单包含录屏顺序、成功判定、隐私边界和下一步。
+
+结论：
+- 当前阶段已完成，达到最小可行度。
+- 不修改 Unity 场景、敌人、玩家脚本或数值。
+- 不继续扩写录屏脚本。
+- 下一步由用户按清单实际试录 `01_level1_overview.mp4`。
+
 ## 阶段验收：外部 FastAPI 项目交付说明最小整理
 
 日期：2026-06-28
@@ -91,7 +115,7 @@
 
 ## 总体阶段
 
-当前阶段：外部 FastAPI 项目交付说明最小整理已完成，建议进入 Unity Level1 主演示录屏前最小检查。
+当前阶段：Unity Level1 主演示录屏前最小检查已完成，下一步按清单实际试录 `01_level1_overview.mp4`。
 
 完整阶段路线与验收标准见 `docs/staged_roadmap.md`。
 
@@ -1401,7 +1425,7 @@ def chat_once(state, player_message):
 
 ## 下一里程碑
 
-下一阶段建议：进入 Unity Level1 主演示录屏前最小检查。只确认 `01_level1_overview.mp4` 的录制范围、成功标准和信息隐私边界。
+下一阶段建议：按 `docs/level1_overview_recording_checklist.md` 实际试录 `01_level1_overview.mp4`，然后只验收画面、核心玩法和隐私边界。
 
 ## 更新模板
 

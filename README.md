@@ -51,6 +51,7 @@
 - [docs/agent_workflow.md](docs/agent_workflow.md)：Tool Calling / Memory / MCP 原型说明。
 - [docs/portfolio_delivery_checklist.md](docs/portfolio_delivery_checklist.md)：作品集交付清单。
 - [docs/external_fastapi_delivery.md](docs/external_fastapi_delivery.md)：外部 FastAPI 项目关系、必需文件和最小运行步骤。
+- [docs/level1_overview_recording_checklist.md](docs/level1_overview_recording_checklist.md)：`01_level1_overview.mp4` 录屏范围、成功标准和隐私边界。
 - [HANDOVER.md](HANDOVER.md)：接手提醒和当前已知问题。
 
 ## 当前边界
@@ -63,6 +64,6 @@
 
 ## 下一步
 
-GitHub 首次推送、仓库入口检查、录屏素材命名和外部 FastAPI 项目交付说明已完成。
+GitHub 首次推送、仓库入口检查、录屏素材命名、外部 FastAPI 交付说明和 Level1 主演示录屏前检查已完成。
 
-下一阶段建议做“Unity Level1 主演示录屏前最小检查”：只确认 `01_level1_overview.mp4` 应该展示什么、如何判定录制成功，不改游戏功能。
+下一阶段建议按 [Level1 主演示录屏清单](docs/level1_overview_recording_checklist.md) 实际试录 `01_level1_overview.mp4`，只确认是否达到最低展示标准。
