@@ -18,6 +18,7 @@
 | AI 关卡设计助手 | 已有命令行模板、DeepSeek、RAG、评价和 JSON 输出 | AI 辅助生成和评估关卡方案 |
 
 完整交付盘点见 [docs/portfolio_delivery_checklist.md](docs/portfolio_delivery_checklist.md)。
+录屏素材命名和目录规则见 [portfolio_delivery/README.md](portfolio_delivery/README.md)。
 
 ## 推荐录屏顺序
 
@@ -61,6 +62,6 @@
 
 ## 下一步
 
-GitHub 首次推送和仓库入口检查已完成。
+GitHub 首次推送、仓库入口检查以及录屏素材命名整理已完成。
 
-下一阶段建议做“录屏素材命名与作品集交付文件夹最小整理”：只确认演示视频应该如何命名、放在哪里、对应哪些展示模块，不新增游戏功能。
+下一阶段建议做“外部 FastAPI 项目交付说明最小整理”：只说明 `D:\develop\pythons` 与当前仓库的关系、必需文件和最小运行步骤，暂不迁移代码。
