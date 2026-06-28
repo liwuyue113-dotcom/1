@@ -1,5 +1,28 @@
 # 项目进度
 
+## 阶段验收：外部 FastAPI 项目交付说明最小整理
+
+日期：2026-06-28
+
+完成内容：
+- 新增 `docs/external_fastapi_delivery.md`。
+- 说明 `D:\develop\pythons` 与当前 Git 仓库的运行关系。
+- 核对 `api.py`、`save_guard.py`、守卫状态、演示脚本和测试文件的用途。
+- 记录四个已确认路由、环境变量、最小启动命令和测试命令。
+- 记录当前虚拟环境的主要依赖版本快照。
+- 明确外部项目尚无 `requirements.txt`、`pyproject.toml`、README 或 `.env.example`，当前不冒充完整可移植交付。
+
+验证方式：
+- `D:\develop\pythons\.venv\Scripts\python.exe -m unittest test_api_rag.py test_world_qa_demo.py -v`：7 项测试通过。
+- 短暂启动 `uvicorn api:app` 后请求 `GET /health`：返回 HTTP `200` 和 `{"status":"ok"}`。
+- 依赖版本读取成功：FastAPI `0.136.3`、Pydantic `2.13.4`、OpenAI `2.38.0`、Uvicorn `0.48.0`。
+
+结论：
+- 当前阶段已完成，达到最小可行度。
+- 当前机器上的 FastAPI 服务可启动、可验证，但外部项目尚不是可独立重建的完整交付包。
+- 不继续迁移代码或补全外部项目架构。
+- 下一步进入“Unity Level1 主演示录屏前最小检查”。
+
 ## 阶段验收：录屏素材命名与作品集交付目录最小整理
 
 日期：2026-06-27
@@ -64,11 +87,11 @@
 
 本文档是整个作品集项目的唯一进度总表。每次完成、开始或取消功能时都要更新本文件，并同步更新对应设计文档与技术决策。
 
-最后更新：2026-06-27
+最后更新：2026-06-28
 
 ## 总体阶段
 
-当前阶段：录屏素材命名与作品集交付目录最小整理已完成，建议进入外部 FastAPI 项目交付说明最小整理。
+当前阶段：外部 FastAPI 项目交付说明最小整理已完成，建议进入 Unity Level1 主演示录屏前最小检查。
 
 完整阶段路线与验收标准见 `docs/staged_roadmap.md`。
 
@@ -1378,7 +1401,7 @@ def chat_once(state, player_message):
 
 ## 下一里程碑
 
-下一阶段建议：进入外部 FastAPI 项目交付说明最小整理。只说明 `D:\develop\pythons` 与当前仓库的关系、必需文件和最小运行步骤，暂不迁移代码。
+下一阶段建议：进入 Unity Level1 主演示录屏前最小检查。只确认 `01_level1_overview.mp4` 的录制范围、成功标准和信息隐私边界。
 
 ## 更新模板
 

@@ -50,6 +50,7 @@
 - [docs/rag.md](docs/rag.md)：RAG 设定知识库说明。
 - [docs/agent_workflow.md](docs/agent_workflow.md)：Tool Calling / Memory / MCP 原型说明。
 - [docs/portfolio_delivery_checklist.md](docs/portfolio_delivery_checklist.md)：作品集交付清单。
+- [docs/external_fastapi_delivery.md](docs/external_fastapi_delivery.md)：外部 FastAPI 项目关系、必需文件和最小运行步骤。
 - [HANDOVER.md](HANDOVER.md)：接手提醒和当前已知问题。
 
 ## 当前边界
@@ -62,6 +63,6 @@
 
 ## 下一步
 
-GitHub 首次推送、仓库入口检查以及录屏素材命名整理已完成。
+GitHub 首次推送、仓库入口检查、录屏素材命名和外部 FastAPI 项目交付说明已完成。
 
-下一阶段建议做“外部 FastAPI 项目交付说明最小整理”：只说明 `D:\develop\pythons` 与当前仓库的关系、必需文件和最小运行步骤，暂不迁移代码。
+下一阶段建议做“Unity Level1 主演示录屏前最小检查”：只确认 `01_level1_overview.mp4` 应该展示什么、如何判定录制成功，不改游戏功能。
