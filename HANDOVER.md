@@ -1,737 +1,410 @@
 # 《囚城营救》项目交接文档
 
-## 2026-06-30 Level1 主演示实际录制已暂缓
+最后更新：2026-06-30
 
-- 用户明确选择跳过 `01_level1_overview.mp4` 的实际录制。
-- 录制状态为“暂缓”，不是“已完成”。
-- 保留 `docs/level1_overview_recording_checklist.md` 和预留文件名，当前不创建视频或占位文件。
-- 下一步进入“多 Agent 游戏世界最小原型范围确认”，暂不接 Unity、LangGraph 或大模型。
+本文是给下一个 AI 的当前状态快照。接手时先按顺序阅读：
 
-## 2026-06-28 Unity Level1 主演示录屏前检查已完成
+1. `AGENTS.md`
+2. `docs/project_context.md`
+3. `docs/progress.md`
+4. `agent.md`
+5. 与当前任务直接相关的设计文档
 
-- 新增 `docs/level1_overview_recording_checklist.md`。
-- `01_level1_overview.mp4` 只展示倒计时、玩家移动、敌人压力和路线选择。
-- 胆小守卫 AI 对话和真路线闭环留给 `02_ai_guard_true_route.mp4`。
-- 已确认 Unity 项目、`2022.3.62f3` 版本和 `Level1.unity` 仍然存在。
-- 录屏只显示 Game 视图，不暴露桌面、本机路径、API Key 或调试窗口。
-- 视频保存在本地 `portfolio_delivery/videos/`，不加入 Git。
-- 下一步由用户按清单实际试录 `01_level1_overview.mp4`。
-
-## 2026-06-28 外部 FastAPI 项目交付说明已整理
-
-- 新增 `docs/external_fastapi_delivery.md`。
-- 已核对 `D:\develop\pythons\api.py` 的 `/health`、`/npc/chat`、`/npc/world_qa` 和 `/agent/turn` 四个路由。
-- 已记录外部 FastAPI 与当前仓库中 `ai_npc`、`rag` 和 `agent_workflow` 的依赖关系。
-- 外部测试 7 项通过，实际启动 Uvicorn 后 `GET /health` 返回 HTTP `200`。
-- 外部项目当前没有 `requirements.txt`、`pyproject.toml`、README 或 `.env.example`，尚不是可独立重建的完整交付包。
-- 当前不迁移外部代码，不提交 `.venv`、`guard_state.json` 或 API Key。
-- 下一步进入“Unity Level1 主演示录屏前最小检查”。
-
-## 2026-06-27 录屏素材命名与交付目录已整理
-
-- 新增 `portfolio_delivery/README.md`。
-- 推荐本地使用 `videos/`、`screenshots/`和 `covers/` 三类素材目录。
-- 8 条演示素材已按 `01` 到 `08` 统一命名，覆盖 Unity、AI NPC、RAG、关卡助手、Agent Workflow 和 MCP。
-- 当前 Git 只跟踪目录说明，不提交视频大文件。
-- 当前不创建 GitHub Release，等正式成片后再决定交付方式。
-- 下一步进入“外部 FastAPI 项目交付说明最小整理”，暂不迁移代码。
-
-## 2026-06-24 GitHub 页面确认与入口检查已完成
-
-- GitHub 仓库页面：`https://github.com/liwuyue113-dotcom/1`
-- 仓库为公开仓库，默认分支为 `master`。
-- 页面检查时的远程提交为 `1701fade docs: record successful github push`。
-- 远程 `README.md` 已存在，并作为作品集入口。
-- 已新增 `docs/github_page_check.md`。
-- README 的“下一步”已更新为录屏素材命名与作品集交付文件夹最小整理。
-- 当前不继续打磨 GitHub 页面，不做 GitHub Pages，不创建 Releases。
-
-## 2026-06-24 GitHub 首次推送已完成
-
-- 用户已在本机 PowerShell 成功执行 `git push -u origin master`。
-- 远程仓库：`https://github.com/liwuyue113-dotcom/1.git`。
-- 当前分支：`master`。
-- upstream：`origin/master`。
-- 本地验证：`git status -sb` 显示 `## master...origin/master`。
-- `tools/` 仍为未跟踪目录，暂不纳入作品集主线提交。
-- 下一步建议只做 GitHub 页面确认与作品集展示入口检查，不继续打磨推送流程。
-
-更新时间：2026-06-30
+当文档与实际代码、Unity 场景或当前运行结果冲突时，以实际结果为准，并同步修正文档。
 
 ## 1. 项目目标
 
-本项目是一个面向个人作品集的 Unity 2D 潜入营救游戏与 AI 游戏系统综合项目。
+本项目是一个以 Unity 2D 潜入营救游戏《囚城营救》为核心的个人作品集项目。
 
-核心作品是《囚城营救》：玩家扮演姬野，潜入离国边境城堡，在倒计时结束前找到被俘的吕归尘。当前版本的通关条件是找到吕归尘，不包含后续护送和逃离玩法。
+游戏中，玩家扮演姬野，需要在倒计时结束前潜入离国边境城堡并找到被俘的吕归尘。当前通关条件是“找到吕归尘”，不包含护送和逃离玩法。
 
-项目用于展示以下能力：
+作品集目标是同时展示：
 
-- 游戏策划与关卡设计。
-- Unity 2D 游戏开发。
-- AI NPC 与稳定游戏规则结合。
-- RAG 世界观知识库与来源引用。
-- AI 关卡设计助手。
-- Tool Calling / Memory / Agent Workflow 原型。
-- 后续多 Agent 游戏世界原型。
+- 游戏策划、三路线关卡和 Unity 2D 开发能力。
+- AI NPC 如何影响真实游戏机制，而不是只做聊天。
+- RAG 如何管理游戏世界观、引用来源并检查设定冲突。
+- AI 关卡设计助手如何生成和评价结构化策划案。
+- Tool Calling、Memory、MCP 和 Agent Workflow 如何限制 AI 的可执行行为。
+- 后续如何扩展到受规则约束的多 Agent 游戏世界。
 
-重要边界：
+目标岗位包括游戏策划、AI 技术策划、AI 游戏设计师、Agent 游戏开发和剧情叙事策划。
 
-- 本项目是基于《九州缥缈录》原著人物与世界观的原创同人支线。
-- 原著人物、势力与人物关系归原作者及相关权利方所有。
-- 项目原创部分是潜入营救支线、关卡流程、AI NPC 机制、RAG 设定管理和技术实现。
-- 不保存 API Key、密码或其他秘密。
+项目是基于《九州缥缈录》人物与世界观创作的原创同人支线。潜入营救关卡、三路线玩法、AI NPC、RAG 设定管理和技术实现属于项目原创内容；原著人物、势力和世界观归原作者及相关权利方所有。
 
 ## 2. 已完成功能
 
-### 2.1 Unity 游戏基础
+### 2.1 Unity 游戏与 Level1
 
 - 已有可运行的 Unity 2D 游戏版本。
-- 已实现角色移动、战斗、敌人、基础关卡、UI、剧情和存档。
+- 已实现玩家移动、战斗、敌人、基础关卡、UI、剧情、存档和倒计时。
 - Unity 版本已确认为 `2022.3.62f3`。
-- 实际 Unity 项目位于 `D:\UnityProjects\project03`，不在当前仓库内。
-- 当前仓库保存的是文档、Python 原型、RAG 代码、AI 关卡助手代码和阶段性 Unity 脚本副本。
+- Level1 已具备上路、中路和下方暗道三条路线。
+- 用户已实测确认：上路更绕或更耗时，中路守卫压力更集中，暗道入口默认不明显但获得真实情报后可以找到。
+- `Enemy (3)`、`Enemy (4)`、`Enemy (6)` 已人工确认位于暗道陷阱内且不会出来，不计入可走路径上的站岗守卫数量。
 
 ### 2.2 胆小守卫 AI NPC 垂直切片
 
-已完成一个可录制展示的 AI NPC 流程：
+已完成的运行链路：
 
 ```text
 玩家自由输入
 -> DeepSeek 判断意图并生成角色台词
--> Python 规则系统更新信任和恐惧
--> Python 规则系统决定真实路线、虚假路线或拒绝透露
+-> Python 规则系统更新信任、恐惧和情报结果
 -> FastAPI 返回结构化 JSON
--> Unity 显示回复、情绪、路线提示和倒计时效果
+-> Unity 显示对话、情绪、加时和路线提示
 ```
 
-已验证能力：
+已验证：
 
-- 玩家可以与胆小守卫进行中文自由对话。
-- DeepSeek 能识别 `comfort`、`threaten`、`ask_route`、`other`。
-- Python 规则系统负责信任、恐惧、真假情报和历史状态。
-- FastAPI 已提供 `GET /health` 与 `POST /npc/chat`。
-- Unity 已通过 HTTP 调用 FastAPI。
-- 首次对话只增加一次 20 秒。
-- `true_route` 会提示：往前第二个口子跳下去有一条几乎无人镇守的暗道。
-- `false_route` 会误导玩家往上走。
+- 意图支持 `comfort`、`threaten`、`ask_route`、`other`。
+- 安抚会提高信任、降低恐惧；威胁会降低信任、提高恐惧。
+- Python 规则而不是大模型决定 `true_route`、`false_route` 或 `none`。
+- 真情报提示“往前第二个口子跳下去有一条暗道”；假情报误导玩家往上走。
+- 首次成功对话只增加一次 20 秒。
 - 假情报可以在后续成功安抚后更正为真情报。
-- 普通剧情 NPC 不受 AI 守卫系统影响。
+- AI 对话 UI 会在玩家靠近时显示、远离时隐藏，普通剧情 NPC 不受影响。
+- 真路线流程已试跑通过，可以从守卫情报找到暗道入口。
 
 ### 2.3 RAG 游戏设定知识库
 
-已完成本地 RAG 最小可用版本：
-
-- `docs/rag_setting.md` 保存已确认设定。
-- 使用 `BAAI/bge-small-zh-v1.5` 中文 Embedding。
-- 使用 NumPy 向量索引。
-- 支持 Top 3 检索、来源引用和证据不足拒答。
-- 已验证三条路线、敌人分布、巡逻方式、隐藏暗道和剧情设定的检索。
-- 当前 RAG 默认只索引已确认设定，不把进度文档、交接文档或临时讨论加入索引。
-
-已验证命令：
-
-```powershell
-D:\develop\pythons\.venv\Scripts\python.exe -m unittest discover -s rag/tests -v
-```
-
-最近一次验证结果：31 项测试通过。
+- `docs/rag_setting.md` 保存已确认的角色、剧情和三路线设定。
+- 使用 `BAAI/bge-small-zh-v1.5` 中文 Embedding 和 NumPy 向量索引。
+- 支持 Markdown 切片、Top 3 检索、来源引用和证据不足时拒绝编造。
+- 默认只索引专用已确认设定，不把进度、交接或临时文档当作世界观事实。
+- 已完成 AI NPC RAG 适配层和外部 FastAPI `POST /npc/world_qa`。
+- 已完成设定冲突检查器最小原型，可识别守卫数量等明显冲突并输出来源。
 
 ### 2.4 AI 关卡设计助手
 
-已完成命令行 MVP：
+- 提供 `python -m level_designer.cli` 命令行入口。
+- 本地模板可生成固定结构的三路线关卡策划案。
+- `--provider deepseek` 支持 DeepSeek，缺少 API Key 或调用失败时回退本地模板。
+- `--use-rag` 将检索到的已确认设定作为生成依据。
+- `--evaluate` 检查玩家目标、三路线、风险收益和失败条件。
+- `--format json` 输出输入、Markdown 策划案、评价结果和回退提示。
+- DeepSeek 只生成策划文本，不直接修改 Unity 关卡。
 
-- 本地模板生成固定结构的关卡策划案。
-- DeepSeek 接入，未配置 API Key 或调用失败时回退本地模板。
-- RAG 接入，为关卡设计提供已确认设定依据。
-- 质量评价规则，检查玩家目标、三条路线、风险收益和失败条件。
-- JSON 输出，便于未来网页或 Unity 工具读取。
+### 2.5 Tool Calling、Memory、Agent Workflow 与 MCP
 
-当前原则：
+- `agent_workflow` 已实现本地 Python 原型和命令行演示。
+- 白名单工具为 `get_route_info`、`check_game_state`、`update_quest_hint`。
+- 未授权工具会被拒绝，例如 `open_prison_gate`。
+- 玩家询问路线、任务或发送其他消息时，关键行为会写入本局 Memory。
+- 外部 FastAPI 已提供 `POST /agent/turn`。
+- MCP stdio JSON-RPC 服务已支持 `initialize`、`tools/list` 和 `tools/call`。
+- MCP 当前只暴露 `get_route_info` 和 `check_game_state` 两个只读工具，暂不暴露 `update_quest_hint`。
+- `agent_workflow/mcp_demo.py` 可以不依赖真实 MCP 客户端展示工具列表和调用。
+- `agent_workflow/mcp_client_config.example.json` 提供客户端启动配置示例。
 
-- DeepSeek 只生成策划文本，不直接修改关卡。
-- RAG 只提供事实依据，不直接生成策划案。
-- 质量评价只做最低结构检查，不代替人工策划判断。
-- 当前阶段已经达到最小可行性，不继续打磨关卡助手。
+### 2.6 外部 FastAPI 与作品集交付
 
-### 2.5 RAG 接入 AI NPC / 外部 FastAPI
+- 外部 FastAPI 已提供 `GET /health`、`POST /npc/chat`、`POST /npc/world_qa` 和 `POST /agent/turn`。
+- `docs/external_fastapi_delivery.md` 已说明外部项目与当前仓库的关系、必需文件、环境变量和启动步骤。
+- 根目录 `README.md` 已作为作品集入口。
+- `portfolio_delivery/README.md` 已统一 8 条录屏素材的命名和存放规则。
+- `01_level1_overview.mp4` 的检查清单已完成，但用户于 2026-06-30 选择暂缓实际录制；状态不得写成“已完成”。
+- GitHub 公开仓库为 `https://github.com/liwuyue113-dotcom/1`，默认分支为 `master`。
 
-已完成：
-
-- 当前仓库新增 `ai_npc.rag_context`。
-- 外部 FastAPI 项目 `D:\develop\pythons` 新增 `POST /npc/world_qa`。
-- `/npc/world_qa` 通过 lazy import 引用当前仓库代码。
-- 没有修改现有 `/npc/chat`。
-- 没有影响 Unity 当前胆小守卫真假路线流程。
-- 新增 `world_qa_demo.py`，可以不用 Unity 演示 RAG 世界观问答。
-
-实际演示结果：
+### 2.7 2026-06-30 新鲜验证结果
 
 ```text
-问题：真正安全的路线在哪里？
-回答：未调用 DeepSeek。最相关设定片段：胆小守卫提供的真实安全路线是：往前第二个口子跳下去有一条暗道，几乎无人镇守。这条路线可以帮助玩家绕过守卫巡逻。
-是否使用 RAG：是
-来源：docs/rag_setting.md
+rag/tests                 35 项通过
+ai_npc/tests               4 项通过
+level_designer/tests      18 项通过
+agent_workflow/tests      16 项通过
+外部 FastAPI 测试          7 项通过
 ```
 
-### 2.6 Tool Calling / Memory 最小原型
+外部 FastAPI 测试会显示 `StarletteDeprecationWarning`，但当前 7 项测试仍全部通过。
 
-已完成本地 Python 原型：
-
-- 新增 `agent_workflow` 包。
-- Agent 只能调用白名单工具。
-- 未授权工具会被拒绝。
-- 工具调用可以读取或更新受控游戏状态字段。
-- 玩家关键行为会写入本局内存记忆。
-- 提供命令行演示。
-
-当前白名单工具：
-
-| 工具 | 用途 |
-| --- | --- |
-| `get_route_info` | 查询上路、中路或下方暗道的基础路线设定 |
-| `check_game_state` | 读取剩余时间、钥匙状态和当前任务提示 |
-| `update_quest_hint` | 更新任务提示文本 |
-
-当前阶段不做：
-
-- 不接真实 MCP Server。
-- 不接 Unity。
-- 不调用 DeepSeek。
-- 不接 RAG。
-- 不做长期记忆文件。
-- 不做 LangGraph 或多 Agent。
-
-已验证命令：
+对应验证命令：
 
 ```powershell
+D:\develop\pythons\.venv\Scripts\python.exe -m unittest discover -s rag/tests -v
+D:\develop\pythons\.venv\Scripts\python.exe -m unittest discover -s ai_npc/tests -v
+D:\develop\pythons\.venv\Scripts\python.exe -m unittest discover -s level_designer/tests -v
 D:\develop\pythons\.venv\Scripts\python.exe -m unittest discover -s agent_workflow/tests -v
-D:\develop\pythons\.venv\Scripts\python.exe -m agent_workflow.cli
+
+cd D:\develop\pythons
+D:\develop\pythons\.venv\Scripts\python.exe -m unittest test_api_rag.py test_world_qa_demo.py -v
 ```
-
-最近一次验证结果：4 项测试通过，CLI 能输出路线回复、工具名 `get_route_info` 和记忆数量。
-
-### 2.7 Agent Workflow 接入外部 FastAPI
-
-已完成最小 HTTP 接口：
-
-- 外部 FastAPI 项目 `D:\develop\pythons` 新增 `POST /agent/turn`。
-- 接口接收 `player_message`。
-- 接口通过 lazy import 调用当前仓库的 `agent_workflow.prototype.run_agent_turn()`。
-- 返回 `reply`、`tool_calls`、`memory` 和 `game_state`。
-- 没有修改现有 `/npc/chat`。
-- 没有修改现有 `/npc/world_qa`。
-- 没有接 Unity、真实 MCP、LangGraph 或长期记忆。
-
-已验证命令：
-
-```powershell
-D:\develop\pythons\.venv\Scripts\python.exe -m unittest test_api_rag.py -v
-```
-
-最近一次验证结果：4 项测试通过，覆盖 `/health`、`/npc/chat`、`/npc/world_qa` 和 `/agent/turn`。
-
-### 2.8 真实 MCP 最小服务
-
-已完成 MCP 风格的最小 stdio JSON-RPC 服务：
-
-- 新增 `agent_workflow/mcp_server.py`。
-- 支持 `initialize`，返回 MCP 协议版本、工具能力和服务信息。
-- 支持 `tools/list`，列出当前暴露的工具。
-- 支持 `tools/call`，调用 `get_route_info`。
-- 复用现有 `agent_workflow.prototype.call_tool()` 白名单逻辑。
-- 未授权工具会返回 `isError: true`，例如 `open_prison_gate`。
-- 已处理 Windows 管道可能带来的 BOM 或前缀字符问题。
-- 当前没有安装或依赖外部 `mcp` SDK。
-- 不接 Unity、不接 LangGraph、不做长期记忆。
-
-已验证命令：
-
-```powershell
-D:\develop\pythons\.venv\Scripts\python.exe -m unittest agent_workflow.tests.test_mcp_server -v
-```
-
-最近一次验证结果：8 项测试通过，覆盖初始化、工具列表、工具调用、未知工具拒绝、单行 JSON-RPC 处理、多请求 stdio 输出和 Windows 管道前缀兼容。
-
-### 2.9 MCP 服务启动说明与配置示例
-
-已完成：
-
-- 新增 `agent_workflow/mcp_client_config.example.json`。
-- 配置示例使用 `D:\develop\pythons\.venv\Scripts\python.exe` 启动。
-- 配置示例参数为 `-m agent_workflow.mcp_server`。
-- 配置示例包含 `cwd`，指向 `C:\Users\eurp\Documents\coedx_learning`。
-- `docs/agent_workflow.md` 已补充 MCP 客户端配置示例和演示步骤。
-- 当前没有直接修改任何真实 MCP 客户端配置。
-
-已验证命令：
-
-```powershell
-D:\develop\pythons\.venv\Scripts\python.exe -m json.tool agent_workflow/mcp_client_config.example.json
-D:\develop\pythons\.venv\Scripts\python.exe -m unittest discover -s agent_workflow/tests -v
-```
-
-最近一次验证结果：配置示例 JSON 合法，Agent Workflow 测试 12 项通过。
-
-### 2.10 MCP 第二个只读工具 check_game_state
-
-已完成：
-
-- `agent_workflow/mcp_server.py` 新增 `check_game_state` 工具声明。
-- `tools/list` 现在返回 `get_route_info` 和 `check_game_state`。
-- `tools/call` 可以调用 `check_game_state`。
-- `check_game_state` 不需要参数，使用 `{}` 即可。
-- `check_game_state` 返回默认游戏状态，包括 `remaining_time`、`has_key` 和 `quest_hint`。
-- 当前仍然不暴露 `update_quest_hint`，避免 MCP 客户端过早修改任务状态。
-
-已验证命令：
-
-```powershell
-D:\develop\pythons\.venv\Scripts\python.exe -m unittest agent_workflow.tests.test_mcp_server -v
-```
-
-最近一次验证结果：9 项测试通过，覆盖两个工具的列表展示、路线工具调用、状态工具调用、未知工具拒绝和 stdio 处理。
-
-### 2.11 MCP 命令行演示脚本
-
-已完成：
-
-- 新增 `agent_workflow/mcp_demo.py`。
-- 新增 `agent_workflow/tests/test_mcp_demo.py`。
-- 演示脚本在进程内模拟 MCP 请求，不需要真实 MCP 客户端。
-- 演示 `tools/list`，输出 `get_route_info` 和 `check_game_state`。
-- 演示 `tools/call get_route_info`，输出下方暗道路线。
-- 演示 `tools/call check_game_state`，输出默认游戏状态。
-- `docs/agent_workflow.md` 已补充演示命令和预期输出。
-
-已验证命令：
-
-```powershell
-D:\develop\pythons\.venv\Scripts\python.exe -m unittest agent_workflow.tests.test_mcp_demo -v
-D:\develop\pythons\.venv\Scripts\python.exe -m agent_workflow.mcp_demo
-```
-
-最近一次验证结果：演示脚本测试 3 项通过，实际命令能输出工具列表、路线工具结果和游戏状态工具结果。
-
-### 2.12 Agent Workflow 阶段作用说明
-
-已完成：
-
-- 新增 `docs/agent_workflow_stage_roles.md`。
-- 说明 Tool Calling / Memory 本地原型、命令行演示、FastAPI 接口、MCP 服务、MCP 配置示例、MCP 只读状态工具和 MCP 演示脚本分别解决什么问题。
-- 每个阶段都补充了对应游戏意义和作品集讲法。
-- `docs/agent_workflow.md` 已链接到该说明文档。
-
-用途：
-
-- 用于作品集录屏、答辩和面试讲解。
-- 帮助解释为什么 AI 不能直接改游戏状态，只能调用白名单工具。
-- 帮助解释为什么当前阶段不继续接 Unity、LangGraph 或长期记忆。
-
-### 2.13 RAG 设定冲突检查器最小原型
-
-已完成：
-
-- 新增 `rag/conflict_checker.py`。
-- 新增 `rag/check_conflict.py`。
-- 新增 `rag/tests/test_conflict_checker.py`。
-- 复用现有 RAG 索引检索相关旧设定。
-- 第一版能识别明显的守卫数量冲突，例如“下方暗道只有一个守卫”和“下方暗道有多个守卫”。
-- 命令行输出结论、冲突原因、来源和相关设定片段。
-
-演示命令：
-
-```powershell
-D:\develop\pythons\.venv\Scripts\python.exe -m rag.check_conflict "新增设定：下方暗道内部有多个守卫来回巡逻。"
-```
-
-当前边界：
-
-- 不接 Unity。
-- 不调用 DeepSeek。
-- 不自动修改 `docs/rag_setting.md`。
-- 不替代人工策划判断，只做新增设定前的提醒工具。
-
-### 2.14 RAG 冲突检查器作品集演示说明
-
-已完成：
-
-- 新增 `docs/rag_conflict_checker_demo.md`。
-- 说明冲突检查器解决的问题。
-- 补充演示命令、预期输出重点、录屏讲解顺序和面试讲法。
-- 明确当前边界：不自动改设定、不替代人工策划判断、不接 Unity。
-- `docs/rag.md` 和 `rag/README.md` 已链接到该说明文档。
-
-用途：
-
-- 用于作品集录屏。
-- 用于答辩或面试解释 RAG 不只是问答，也可以辅助维护设定一致性。
-- 用于说明为什么第一版先用规则判断，而不是让大模型直接审稿。
-
-### 2.15 Unity Level1 三路线一致性静态核对
-
-已完成：
-
-- 新增 `docs/unity_level1_route_audit.md`。
-- 静态读取实际 Unity 工程 `D:\UnityProjects\project03`。
-- 确认 Unity 版本为 `2022.3.62f3`。
-- 确认 `Level1.unity` 存在。
-- 确认 Level1 中存在 `AIguard`、`AIGuardDialogueSystem`、`AIGuardInteractionZone` 和 `Route Hint Text`。
-- 静态读取到 25 个 `Enemy` 对象。
-- 下方层级 y 约为 `-37` 的位置有 `Enemy (3)`、`Enemy (4)`、`Enemy (6)` 三个敌人。
-
-当前结论：
-
-- 不能仅凭 YAML 判定这 3 个敌人都在下方暗道内部。
-- 但这已经足够作为下一阶段 Unity 编辑器复核目标。
-- 如果它们都在暗道可用路径内，就与“暗道内部只有一个站岗守卫”的设定冲突。
-- 如果只有 1 个在暗道内部，其他属于下方普通区域，则不用改场景，只需在文档中标清归属。
 
 ## 3. 当前正在做什么
 
-当前最新决定：`01_level1_overview.mp4` 实际录制已暂缓。
+当前已完成 AI NPC、RAG、AI 关卡设计助手、Tool Calling / Memory 和 MCP 的最小原型。
 
-当前不要继续要求用户录制 `01` 视频，也不要将未录制素材写成已完成。
+当前不再要求用户录制 `01_level1_overview.mp4`，也不应继续打磨已达到最小可行度的局部原型。
 
-下一步建议：
+当前下一阶段是：
 
-进入“多 Agent 游戏世界最小原型范围确认”，只定义两个 Agent、最少共享世界状态、白名单行为和禁止行为。
+```text
+多 Agent 游戏世界最小原型范围确认
+```
+
+这一阶段只需确认：
+
+- 第一版使用哪两个 Agent。
+- 两个 Agent 共享哪些最少世界状态。
+- Agent 可以申请调用哪些白名单行为。
+- Agent 不得直接修改哪些游戏状态。
+
+当前不实现 Unity 接入、LangGraph、大模型调用、长期记忆或复杂多 Agent 协商。
+
+当前 Git 状态：
+
+- 分支：`master`
+- 远程：`origin -> https://github.com/liwuyue113-dotcom/1.git`
+- 重写本文前的最新提交：`a1ca94a docs: defer level1 overview recording`
+- 本地 `master` 与 `origin/master` 同步。
+- `tools/` 仍为未跟踪目录，不属于当前游戏作品集主线，不要自动加入提交。
 
 ## 4. 修改过哪些文件
 
-### 4.1 项目规则与知识库
+以下是下一个 AI 最需要知道的已跟踪文件和目录。完整历史以 `git log --stat` 和 `git ls-files` 为准。
 
+### 4.1 根目录与知识库
+
+- `.gitignore`
 - `AGENTS.md`
 - `agent.md`
+- `README.md`
 - `HANDOVER.md`
+- `portfolio_delivery/README.md`
 - `docs/project_context.md`
 - `docs/progress.md`
+- `docs/staged_roadmap.md`
 - `docs/game_design.md`
 - `docs/tech_decision.md`
 - `docs/coding_rules.md`
 - `docs/ai_npc.md`
-- `docs/agent_workflow.md`
-- `docs/agent_workflow_stage_roles.md`
-- `docs/rag_conflict_checker_demo.md`
-- `docs/unity_level1_route_audit.md`
-- `docs/staged_roadmap.md`
-- `docs/level_designer.md`
 - `docs/rag.md`
 - `docs/rag_setting.md`
+- `docs/rag_conflict_checker_demo.md`
+- `docs/level_designer.md`
+- `docs/agent_workflow.md`
+- `docs/agent_workflow_stage_roles.md`
+- `docs/external_fastapi_delivery.md`
+- `docs/portfolio_delivery_checklist.md`
+- `docs/ai_guard_route_recording_checklist.md`
+- `docs/level1_overview_recording_checklist.md`
+- `docs/unity_level1_route_audit.md`
+- `docs/unity_level1_route_experience_audit.md`
+- `docs/pre_commit_cleanup_check.md`
+- `docs/first_commit_scope.md`
+- `docs/github_push_precheck.md`
+- `docs/github_page_check.md`
+- `docs/superpowers/specs/`
+- `docs/superpowers/plans/`
 
-### 4.2 RAG 代码
+### 4.2 RAG 与 AI NPC 适配层
 
-- `rag/__init__.py`
-- `rag/rag_config.py`
-- `rag/document_loader.py`
-- `rag/embedding_service.py`
-- `rag/vector_store.py`
-- `rag/build_index.py`
 - `rag/answer_service.py`
 - `rag/ask.py`
-- `rag/conflict_checker.py`
+- `rag/build_index.py`
 - `rag/check_conflict.py`
-- `rag/README.md`
+- `rag/conflict_checker.py`
+- `rag/document_loader.py`
+- `rag/embedding_service.py`
+- `rag/rag_config.py`
+- `rag/vector_store.py`
 - `rag/requirements.txt`
-- `rag/tests/test_document_loader.py`
-- `rag/tests/test_embedding_service.py`
-- `rag/tests/test_vector_store.py`
-- `rag/tests/test_answer_service.py`
-- `rag/tests/test_rag_acceptance.py`
-- `rag/tests/test_conflict_checker.py`
-- `rag/tests/fixtures/`
-
-生成索引位于 `rag/rag_data/`，该目录属于可重新生成数据，已被 `.gitignore` 忽略。
-
-### 4.3 AI 关卡设计助手代码
-
-- `level_designer/__init__.py`
-- `level_designer/generator.py`
-- `level_designer/deepseek_client.py`
-- `level_designer/rag_context.py`
-- `level_designer/evaluator.py`
-- `level_designer/json_output.py`
-- `level_designer/cli.py`
-- `level_designer/tests/test_generator.py`
-
-### 4.4 AI NPC RAG 适配层代码
-
-- `ai_npc/__init__.py`
+- `rag/tests/`
 - `ai_npc/rag_context.py`
-- `ai_npc/tests/test_rag_context.py`
+- `ai_npc/tests/`
 
-### 4.5 Agent Workflow 最小原型代码
+`rag/rag_data/` 是可重新生成的索引目录，已由 `.gitignore` 忽略。
 
-- `agent_workflow/__init__.py`
+### 4.3 AI 关卡设计助手
+
+- `level_designer/cli.py`
+- `level_designer/deepseek_client.py`
+- `level_designer/evaluator.py`
+- `level_designer/generator.py`
+- `level_designer/json_output.py`
+- `level_designer/rag_context.py`
+- `level_designer/tests/`
+
+### 4.4 Agent Workflow 与 MCP
+
 - `agent_workflow/prototype.py`
 - `agent_workflow/cli.py`
 - `agent_workflow/mcp_server.py`
 - `agent_workflow/mcp_demo.py`
 - `agent_workflow/mcp_client_config.example.json`
-- `agent_workflow/tests/test_tool_calling_memory.py`
-- `agent_workflow/tests/test_mcp_server.py`
-- `agent_workflow/tests/test_mcp_demo.py`
+- `agent_workflow/tests/`
 
-### 4.6 Unity 阶段脚本副本
+### 4.5 Unity 阶段脚本副本
 
-当前仓库内保存了以下 Unity 脚本副本：
-
-- `stage5/AIGuardApiClientTests.cs`
 - `stage5/AIGuardApiTest.cs`
+- `stage5/AIGuardApiClientTests.cs`
 - `stage6/AIGuardDialogueUI.cs`
 - `stage6/AIGuardDialogueUITests.cs`
+- `stage7/AIGuardGameplayRules.cs`
 - `stage7/AIGuardGameplayEffects.cs`
 - `stage7/AIGuardGameplayEffectsTests.cs`
-- `stage7/AIGuardGameplayRules.cs`
 - `stage8/AIGuardInteractionZone.cs`
 - `stage8/AIGuardInteractionZoneTests.cs`
 - `stage8/AIGuardNpcOnly.cs`
 
-Unity 实际项目状态必须到 `D:\UnityProjects\project03` 内重新确认。
+这些是阶段副本。Unity 项目内的实际脚本和场景必须到 `D:\UnityProjects\project03` 重新确认。
 
-### 4.7 外部 AI NPC Python / FastAPI 项目
+### 4.6 当前仓库外的关键文件
 
-外部项目位置：
+Unity 项目：
 
 ```text
-D:\develop\pythons
+D:\UnityProjects\project03
 ```
 
-已知关键文件：
+外部 Python / FastAPI 项目：
 
-- `D:\develop\pythons\save_guard.py`
-- `D:\develop\pythons\api.py`
-- `D:\develop\pythons\guard_state.json`
-- `D:\develop\pythons\test_api_rag.py`
-- `D:\develop\pythons\world_qa_demo.py`
-- `D:\develop\pythons\test_world_qa_demo.py`
-- `D:\develop\pythons\.venv\Scripts\python.exe`
+```text
+D:\develop\pythons\api.py
+D:\develop\pythons\save_guard.py
+D:\develop\pythons\guard_state.json
+D:\develop\pythons\test_api_rag.py
+D:\develop\pythons\world_qa_demo.py
+D:\develop\pythons\test_world_qa_demo.py
+D:\develop\pythons\.venv\Scripts\python.exe
+```
 
-该目录不属于当前 Git 仓库，接手时必须以实际文件为准。
+以上外部文件不在当前 Git 仓库内，任何修改都必须先重新读取实际文件。
 
 ## 5. 关键架构
 
 ### 5.1 总体职责边界
 
-- Unity 负责可信游戏状态、UI、计时器、场景对象和游戏效果。
-- FastAPI 负责提供本地 HTTP 接口，连接 Unity、Python 规则、模型和 RAG。
-- DeepSeek 负责语言理解和角色台词生成。
-- Python 规则系统负责信任、恐惧、真假情报等稳定玩法规则。
-- RAG 负责提供可追溯来源的设定事实，不直接改游戏状态。
-- Agent Workflow 负责受限制的工具调用和记忆流程，不直接绕过规则系统。
+| 组件 | 负责内容 | 不应负责 |
+| --- | --- | --- |
+| Unity | 可信游戏状态、UI、倒计时、场景对象和游戏效果 | 不把 API Key 写入客户端，不盲信 AI 输出 |
+| FastAPI | 为 Unity、AI NPC、RAG 和 Agent Workflow 提供 HTTP JSON 接口 | 不绕过规则系统直接改 Unity 世界 |
+| DeepSeek | 理解玩家语言、分类意图、生成角色台词或策划文本 | 不决定信任数值、真假路线或合法游戏行为 |
+| Python 规则系统 | 信任、恐惧、真假情报和工具白名单 | 不负责 Unity 场景对象的最终执行 |
+| RAG | 检索已确认设定、引用来源、提醒明显冲突 | 不自动改设定，不把检索结果当成可执行指令 |
+| Agent Workflow / MCP | 申请受控工具、记录本局行为、返回结构化结果 | 不直接开门、改血量、改任务或绕过白名单 |
 
-### 5.2 胆小守卫 AI NPC 架构
+### 5.2 AI NPC 数据流
 
 ```text
-Unity 输入 / UI
--> FastAPI /npc/chat
--> DeepSeek 意图识别
--> Python 规则系统
--> DeepSeek 角色台词生成
--> Python 输出验证
+Unity 输入与 UI
+-> FastAPI POST /npc/chat
+-> DeepSeek 意图判断
+-> Python 规则更新信任、恐惧和情报结果
+-> DeepSeek 生成符合规则结果的台词
+-> Python 输出校验
 -> FastAPI 返回 JSON
--> Unity 执行情绪、加时和路线提示
+-> Unity 执行 UI、加时和路线提示
 ```
 
 核心规则：
 
 ```text
-安抚守卫：信任 +20，恐惧 -15
-威胁守卫：信任 -15，恐惧 +15
-询问路线：
+安抚：信任 +20，恐惧 -15
+威胁：信任 -15，恐惧 +15
+问路：
   信任 >= 50 且 信任 >= 恐惧 -> true_route
   恐惧 >= 信任 + 30 -> false_route
   其他 -> none
 ```
 
-### 5.3 RAG 架构
-
-索引构建：
+### 5.3 RAG 数据流
 
 ```text
 docs/rag_setting.md
 -> Markdown 切片
--> build_embedding_text(chunk)
+-> “标题：正文” Embedding
 -> BAAI/bge-small-zh-v1.5
--> embeddings.npy + chunks.json
+-> NumPy 向量索引
+-> 问题 Embedding 与余弦相似度 Top 3
+-> 基于证据回答或拒绝编造
+-> 返回来源与匹配片段
 ```
 
-问答流程：
+冲突检查器复用相同检索结果，再由第一版规则判断守卫数量等明显冲突。
+
+### 5.4 Agent Workflow 与 MCP 数据流
 
 ```text
-玩家问题
--> 问题 Embedding
--> 余弦相似度 Top 3
--> answer_question()
--> DeepSeek 有依据回答或本地拒答
--> 来源文档与检索片段展示
-```
-
-冲突检查流程：
-
-```text
-新增候选设定
--> 候选设定 Embedding
--> 余弦相似度 Top 3
--> check_setting_conflict()
--> 规则判断明显冲突
--> 输出结论、原因、来源和相关片段
-```
-
-### 5.4 AI 关卡设计助手架构
-
-```text
-命令行参数
--> LevelDesignInput
--> provider 判断
--> use_rag: retrieve_rag_context()
--> template: generate_level_plan()
--> deepseek: DeepSeekClient -> AI Markdown 策划案
--> evaluate: evaluate_level_plan()
--> format=json: build_json_output()
-```
-
-### 5.5 Agent Workflow 最小原型架构
-
-```text
-玩家输入
--> FastAPI /agent/turn 或本地 CLI
+玩家消息
 -> run_agent_turn()
--> 判断是否需要工具
+-> 决定是否申请工具
 -> call_tool() 白名单校验
--> 工具返回受控结果
+-> 工具返回受控路线或游戏状态
 -> record_memory() 写入本局记忆
--> 返回 reply、tool_calls、memory、game_state
+-> 返回 reply、tool_calls、memory 和 game_state
 ```
 
-MCP 最小服务流程：
-
 ```text
-MCP Client
+MCP 客户端
 -> stdio JSON-RPC
 -> agent_workflow.mcp_server
--> tools/list 查看 get_route_info
--> tools/call 调用 get_route_info
--> call_tool() 白名单校验
--> 返回 MCP content 文本或 isError
+-> initialize / tools/list / tools/call
+-> 复用 call_tool() 白名单边界
+-> 返回 content 或 isError
 ```
 
-当前白名单工具：
+### 5.5 外部 FastAPI 与当前仓库的关系
 
-- `get_route_info`
-- `check_game_state`
-- `update_quest_hint`
+```text
+D:\develop\pythons\api.py
+-> /npc/chat 复用外部 save_guard.py
+-> /npc/world_qa 延迟导入当前仓库 ai_npc.rag_context
+-> /agent/turn 延迟导入当前仓库 agent_workflow.prototype
+```
 
-当前 MCP 暴露工具：
-
-- `get_route_info`
-- `check_game_state`
+`COEDX_LEARNING_ROOT` 用于告诉外部 FastAPI 当前仓库路径。`DEEPSEEK_API_KEY` 只从环境变量读取，不得写入代码或 Git。
 
 ## 6. 已知问题
 
-1. Unity 实际项目不在当前仓库内，任何 Unity 相关修改都必须去 `D:\UnityProjects\project03` 重新确认代码和场景。
-2. 外部 FastAPI 项目不在当前仓库内，文档中的外部文件状态可能过期，接手时必须重新读取 `D:\develop\pythons`。
-3. 当前 Git 仓库尚无提交记录，许多文件处于未跟踪状态。首次提交前必须检查 `.gitignore`、索引文件、缓存文件和秘密信息。
-4. 用户曾在截图中暴露过 DeepSeek API Key。不要复用截图中的 Key，不要把任何 API Key 写入仓库或文档。
-5. RAG 必须使用安装了 `sentence-transformers` 的虚拟环境运行，推荐 Python 路径为 `D:\develop\pythons\.venv\Scripts\python.exe`。
-6. 如果误用其他 Python，程序可能回退到本地文本向量，导致与 512 维 BGE 索引不匹配。
-7. Unity 退出并重新进入 Play 模式后，Python 侧可能继续读取上一局 `guard_state.json`，导致信任、恐惧、情绪和历史没有重置。后续可增加重置接口。
-8. “真实情报削弱指定守卫血量”的玩法效果已确认后期再做，目前没有实现。
-9. `Level1.unity` 静态读取曾发现下方区域存在 `Enemy (3)`、`Enemy (4)`、`Enemy (6)`。用户已在 Unity 编辑器人工确认：这 3 个敌人都在暗道内部陷阱里，不会出来，不按“暗道可走路径上的站岗守卫”计算。当前不需要移动或删除它们。
-10. `docs/unity_level1_route_experience_audit.md` 已记录 Level1 路线整体体验复核。用户已确认：上路明显更绕或更耗时，中路更容易看到密集守卫或形成集中压力，下方暗道入口默认不明显但听到“往前第二个口子跳下去”后能找到。当前不继续打磨路线整体体验。
-11. `docs/ai_guard_route_recording_checklist.md` 已记录 AI 守卫路线提示录屏最小复核清单。用户已试跑并确认：可以从胆小守卫真实情报顺利走到下方暗道入口。当前不继续打磨该录屏链路。
-12. `docs/portfolio_delivery_checklist.md` 已整理当前可展示模块和推荐录屏顺序；`portfolio_delivery/README.md` 已统一 8 条素材的命名和存放规则。下一步应进入外部 FastAPI 项目交付说明最小整理。
-13. 根目录 `README.md` 已新增，作为作品集入口，说明项目定位、可展示模块、录屏顺序、外部路径、关键文档和当前边界。
-14. `docs/pre_commit_cleanup_check.md` 已记录提交前最小检查。`.gitignore` 已补充 `.env`、虚拟环境、`tmp/`、`output/`、Unity 生成目录、日志和常见缓存目录。尚未做正式 Git 提交。
-15. `docs/first_commit_scope.md` 已记录第一次提交范围建议。建议提交根目录入口与规则文件、`docs/`、`rag/`、`ai_npc/`、`agent_workflow/`、`level_designer/`、`stage5` 到 `stage8`；建议暂不提交 `tools/`。
-16. 当前 `/npc/world_qa` 没有接 Unity UI，Unity 仍只使用 `/npc/chat`。
-17. 当前 `agent_workflow` 已有本地 Python 原型、外部 FastAPI 最小接口、MCP stdio 最小服务和阶段作用说明；MCP 当前暴露 `get_route_info` 和 `check_game_state`，不接 Unity，不接长期记忆。
-18. 当前 RAG 冲突检查器只覆盖最明显的规则冲突，不代表完整剧情审稿。
-19. 同人作品存在 IP 展示边界风险，作品集表达时应说明原著来源，并突出自己的原创支线设计、玩法实现和 AI 系统能力。
+1. **Unity 实际项目在仓库外。** `D:\UnityProjects\project03` 不属于当前 Git 仓库，任何 Unity 修改都必须先读取实际场景和脚本。不要直接手改 `.unity` YAML。
+2. **外部 FastAPI 项目不可独立重建。** `D:\develop\pythons` 当前没有 `requirements.txt`、`pyproject.toml`、README 或 `.env.example`，只能使用现有 `.venv` 直接验证。
+3. **Python 守卫状态可能跨 Play 模式保留。** 关卡重开流程曾验收通过，但退出并重新进入 Unity Play 模式时，外部 `guard_state.json` 仍可能被重新读取。正式录屏或扩展前需要重新实测，后续可增加新一局重置接口。
+4. **RAG 对 Python 环境敏感。** 正式中文 Embedding 依赖 `sentence-transformers` 和 `BAAI/bge-small-zh-v1.5`；如果误用其他 Python，可能回退本地文本向量并与 512 维 BGE 索引不匹配。
+5. **RAG 冲突检查范围有限。** 当前只覆盖守卫数量等第一批明显规则冲突，不是完整剧情审稿器，不会自动改设定。
+6. **Agent Workflow 仍是最小原型。** 当前 Memory 是进程内的本局字典，没有长期持久化；MCP 是最小 stdio JSON-RPC 实现，没有依赖官方 MCP SDK。
+7. **RAG、MCP 和 Agent 尚未接入 Unity 游戏流程。** Unity 当前主要使用 `/npc/chat`，`/npc/world_qa` 和 `/agent/turn` 主要供本地演示。
+8. **AI 守卫尚未实现“真情报削弱守卫”。** 该玩法保留在后期，不阻塞当前阶段。
+9. **录屏素材未完成。** `01_level1_overview.mp4` 已按用户决定暂缓，不得伪造视频文件或把状态写为已完成。
+10. **外部 FastAPI 测试有弃用警告。** FastAPI `TestClient` 当前显示 `StarletteDeprecationWarning`，但不影响 7 项现有测试通过。
+11. **Git 代理需要显式传给 Git。** 2026-06-30 检测到 Windows 系统代理为 `127.0.0.1:7897`，但 Git 不会自动使用它。推送前先确认代理端口仍然有效；当时成功使用的临时命令为：
+
+```powershell
+git -c http.proxy=http://127.0.0.1:7897 -c https.proxy=http://127.0.0.1:7897 push origin master
+```
+
+12. **`tools/` 仍未跟踪。** 该目录主要是简历 PDF 生成工具，与当前游戏作品集主线关系较弱，不要自动加入提交。
+13. **同人作品有 IP 展示边界。** 对外展示时需说明原著来源，并突出原创支线设计、玩法实现和 AI 系统能力。
+14. **部分长期文档仍保留历史快照。** `docs/project_context.md` 和 `docs/progress.md` 的早期段落中仍可能出现“尚无 Git 提交”或“路线待验证”等旧描述。当前状态以实际代码、新鲜测试、Git 和本交接文为准；只在相关任务需要时再修正对应旧段落。
 
 ## 7. 下一步开发计划
 
-### 7.1 可选后续扩展：RAG 设定冲突检查器
+### 7.1 下一阶段：多 Agent 最小原型范围确认
 
-目标：
+本阶段只做范围设计，不写 LangGraph 或 Unity 接入代码。
 
-```text
-扩展当前冲突检查器，让它覆盖更多设定冲突类型。
-```
+最低交付内容：
 
-后续可扩展方向：
+1. 从守卫、囚犯、盗贼和商人中选择两个 Agent。
+2. 为两个 Agent 定义目标、可见状态和本局记忆。
+3. 定义最少共享世界状态，候选字段为 `alert_level`、`prison_gate_locked`、`key_owner` 和 `player_reputation`。
+4. 定义 Agent 可以申请的白名单行为。
+5. 明确 Agent 不得直接开门、改血量、修改任务或绕过游戏规则。
+6. 把范围、作用和暂不实现内容写入专用设计文档。
 
-- 路线长度冲突，例如“上路较长”和“上路很短”。
-- 入口可见性冲突，例如“下方暗道默认明显”和“下方暗道默认不明显”。
-- 任务流程冲突，例如“找到吕归尘后必须护送逃离”和“当前版本找到吕归尘即通关”。
-- 第一版 MVP 已完成，后续扩展不应阻塞进入新阶段。
+验收后必须停止扩写，再决定是否进入本地 Python 多 Agent 原型。
 
-### 7.2 可选下一阶段：真实 MCP 最小服务
+### 7.2 后续候选顺序
 
-目标：
+1. 用普通 Python 字典和函数实现两个 Agent 的本地回合原型。
+2. 验证两个 Agent 只能通过白名单行为影响共享世界状态。
+3. 为本地原型添加自动测试和命令行演示。
+4. 只在本地原型达到最小可行度后，再评估 LangGraph、大模型或 Unity 接入。
 
-```text
-把当前白名单工具思想扩展成真实 MCP 服务的最低可用版本。
-```
+### 7.3 非当前阻塞的后期项
 
-最低可用标准：
-
-- 当前 MCP 已暴露 `get_route_info` 和 `check_game_state` 两个只读工具。
-- 保持工具白名单边界。
-- 不接 Unity。
-- 不接 LangGraph。
-- 不做复杂长期记忆。
-
-### 7.3 可选下一阶段：Unity 关卡打磨
-
-如果用户选择回到 Unity，下一步应进入：
-
-- 优先进入第一次提交执行前确认。
-- 只确认是否按 `docs/first_commit_scope.md` 的范围执行 `git add` 和 `git commit`。
-- 不要继续打磨路线长度、敌人数量、入口表现或真路线录屏链路。
-- `Enemy (3)`、`Enemy (4)`、`Enemy (6)` 已确认是陷阱内不会出来的敌人，当前不作为待调整问题。
-- 不要直接手改 `.unity` YAML，优先在 Unity 编辑器中调整。
-
-### 7.4 后续长期计划
-
-- 扩展 RAG 设定冲突检查器的更多规则，或整理成作品集演示说明。
-- 将 Agent Workflow 扩展成真实 MCP 最小服务。
-- 修复 Unity 新一局开始时 AI 守卫状态不重置的问题。
-- 后期实现真实情报削弱指定守卫血量或降低巡逻威胁。
-- 将 AI 关卡设计助手接入当前关卡和路线设计案例。
-- 后续再扩充姬野、吕归尘、胆小守卫、离国军守卫的角色设定。
-- 后续再扩充边境城堡地图结构、巡逻路线、暗道、牢房和转移路线。
-- LangGraph 与多 Agent 游戏世界放到更后面，不要提前做。
-
-## 8. 接手提醒
-
-- 先读 `AGENTS.md`，再读 `docs/project_context.md`、`docs/progress.md`、`agent.md`。
-- 当前代码、场景和实际运行结果优先级高于旧文档。
-- 阶段式推进：每轮只做当前阶段最低可用版本，不提前堆高级架构。
-- 一旦某阶段达到最小可行性，必须停止继续补充、打磨或扩写该阶段。
-- 用户是以作品集为目标的数字媒体技术学生，回复时要边做边教，但一次只讲一个小知识点。
-- 每次教学回复必须说明当前阶段、本阶段目标、是否完成、下一步和本次修改文件。
-- 完成功能或重要设定变更后，同步更新 `docs/progress.md` 和直接相关设计文档。
-## 10. 2026-06-24 GitHub 推送状态（历史记录）
-
-- 用户提供的 GitHub 仓库地址为 `https://github.com/liwuyue113-dotcom/1.git`。
-- 当前仓库已配置 remote：`origin -> https://github.com/liwuyue113-dotcom/1.git`。
-- 用户已成功执行 `git push -u origin master`。
-- 后续文档提交 `1701fad docs: record successful github push` 也已推送到 `origin/master`。
-- 当前工作区仍只有 `tools/` 未跟踪。
-- 当前不需要继续打磨推送流程。
-
-## 9. 2026-06-24 最新接手补充
-
-### 9.1 第一次本地提交
-
-- 第一次本地 Git 提交已完成。
-- 第一次本地提交：`f9ea39e chore: initialize portfolio project workspace`。
-- 提交范围包含项目入口文档、`docs/`、`rag/`、`ai_npc/`、`agent_workflow/`、`level_designer/` 和 `stage5` 到 `stage8`。
-- `tools/` 仍然未跟踪，暂不纳入《囚城营救》AI 游戏作品集主线提交。
-
-### 9.2 GitHub 推送前状态（历史记录）
-
-- 当前分支：`master`。
-- 当前远程仓库为 `origin -> https://github.com/liwuyue113-dotcom/1.git`。
-- 新增 `docs/github_push_precheck.md` 记录推送前最小检查。
-- GitHub 首次推送已完成，仓库为公开仓库，默认分支为 `master`。
+- 补全外部 FastAPI 的依赖清单和可移植交付结构。
+- 重新实测并修复 Unity Play 模式的 Python 守卫状态重置问题。
+- 扩展 RAG 冲突规则。
+- 实现真情报削弱指定守卫的后期玩法。
+- 补录作品集视频、截图和封面。
+- 继续改善玩家操作、打击感和关卡细节，但不要在无明确验收标准时泛化打磨。
