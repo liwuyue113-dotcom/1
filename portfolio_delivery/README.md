@@ -35,6 +35,8 @@ portfolio_delivery/
 
 `01_level1_overview.mp4` 的录屏前检查见 [../docs/level1_overview_recording_checklist.md](../docs/level1_overview_recording_checklist.md)。
 
+2026-06-30，用户选择暂缓 `01_level1_overview.mp4` 的实际录制。当前保留文件名和清单，但不将视频标记为已完成。
+
 ## 截图与封面命名
 
 与对应视频保持相同前缀：

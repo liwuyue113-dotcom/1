@@ -64,6 +64,6 @@
 
 ## 下一步
 
-GitHub 首次推送、仓库入口检查、录屏素材命名、外部 FastAPI 交付说明和 Level1 主演示录屏前检查已完成。
+GitHub 仓库入口、录屏素材命名、外部 FastAPI 交付说明和 Level1 主演示录屏前检查已完成。`01_level1_overview.mp4` 的实际录制已按用户决定暂缓。
 
-下一阶段建议按 [Level1 主演示录屏清单](docs/level1_overview_recording_checklist.md) 实际试录 `01_level1_overview.mp4`，只确认是否达到最低展示标准。
+下一阶段建议做“多 Agent 游戏世界最小原型范围确认”：只定义两个 Agent、最少共享世界状态和禁止行为，暂不接 Unity、LangGraph 或大模型。

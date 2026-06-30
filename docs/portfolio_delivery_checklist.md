@@ -59,14 +59,14 @@
 
 ## 下一阶段建议
 
-按 `docs/level1_overview_recording_checklist.md` 实际试录 `01_level1_overview.mp4`。
+实际录制已于 2026-06-30 按用户决定暂缓。保留 `docs/level1_overview_recording_checklist.md`，当前进入“多 Agent 游戏世界最小原型范围确认”。
 
 最低可用目标：
 
 ```text
-试录后只确认：
-1. 倒计时、玩家移动和潜入场景是否清晰。
-2. 是否展示了至少一组敌人压力。
-3. 观看者是否能理解关卡存在路线选择。
-4. 是否没有暴露本机路径、API Key 或调试窗口。
+最低可用目标：
+1. 确定第一版只使用两个 Agent。
+2. 确定两个 Agent 共享的最少世界状态。
+3. 确定 Agent 可以申请的白名单行为。
+4. 确定 Agent 不得直接修改的游戏状态。
 ```
